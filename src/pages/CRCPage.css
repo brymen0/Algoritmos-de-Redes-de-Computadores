@@ -1,0 +1,9 @@
+.crc-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  gap: 20px;
+  padding: 0px;
+}
+

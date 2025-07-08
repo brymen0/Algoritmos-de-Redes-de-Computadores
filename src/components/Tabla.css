@@ -1,0 +1,18 @@
+.tabla {
+  width: auto;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.tabla th,
+.tabla td {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  text-align: center;
+}
+
+.tabla th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}

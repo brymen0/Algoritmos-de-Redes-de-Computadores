@@ -1,0 +1,22 @@
+.checkbox-container {
+  display: flex;
+  gap: 20px;
+  padding: 12px 16px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: max-content;
+}
+
+.checkbox-label {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.checkbox-checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: #1abc9c;
+  cursor: pointer;
+}

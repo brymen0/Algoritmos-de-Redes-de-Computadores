@@ -1,0 +1,11 @@
+.info-container{
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 15px;
+    max-width: 300px;
+    /*margin: 15px 0px;*/
+    gap: 8px;
+}
