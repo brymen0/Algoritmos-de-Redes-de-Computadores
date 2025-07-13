@@ -81,13 +81,13 @@ function deepCopyMatrix(matrix) {
 
 function construirMatriz(trama, multiplos2, n, r, matriz, bitsParidad, tramaRellena) {
   llenarPrimeraFila(matriz, trama, multiplos2, n);
-  //console.log("Llenada priemera fila: ", deepCopyMatrix(matriz))
+  console.log("Llenada priemera fila: ", deepCopyMatrix(matriz))
   llenarFilas(matriz, multiplos2, n);
-  //console.log("Llenada las filas: ",deepCopyMatrix(matriz))
+  console.log("Llenada las filas: ",deepCopyMatrix(matriz))
   completarBitsParidad(matriz, bitsParidad, n);
-  //console.log("Completar los bits de paridad: ",deepCopyMatrix(matriz))
+  console.log("Completar los bits de paridad: ",deepCopyMatrix(matriz))
   subirBitsParidad(matriz, tramaRellena, n);
-  //console.log("Subir los bits de paridad: ",deepCopyMatrix(matriz))
+  console.log("Subir los bits de paridad: ",deepCopyMatrix(matriz))
 }
 
 function detectarError(bitsParidadEmisor, bitsParidadReceptor) {

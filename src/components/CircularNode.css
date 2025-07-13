@@ -1,0 +1,22 @@
+.node-container {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #000;
+    font-weight: bold;
+}
+
+.node-container.selected {
+  border-color: #e91e63;
+  box-shadow: 0 0 5px #e91e63;
+}
+
+
+.punto-union {
+    background: #555;
+}

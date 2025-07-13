@@ -12,9 +12,9 @@ import './App.css'
 function App() {
   return (
     <Router>
-      <div style={{ display: 'flex' }}>
+      <div style={{ /*display: 'flex'*/ }}>
         <Sidebar />
-        <div style={{ flexGrow: 1, padding: '20px' }}>
+        <div style={{ /*flexGrow: 1, padding: '1rem', height: '100vh', weight: '100vw'*/}}>
           <Routes>
             <Route path="/prim" element={<PrimPage />} />
             <Route path="/dijkstra" element={<DijkstraPage />} />

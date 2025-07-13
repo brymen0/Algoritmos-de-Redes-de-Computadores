@@ -33,7 +33,6 @@ function HammingPage() {
       matrizReceptor: matrizReceptorConEtiqueta,
       headers,
     });
-    //setResultado(resultadoHamming);
   };
 
   const handleLimpiar = () => {
