@@ -3,8 +3,11 @@ import { Button } from '../components/Button';
 import { useRef, useState } from 'react';
 import './PrimPage.css';
 import { prim } from '../logic/Prim';
+import { useGraph } from '../context/GraphContext';
 
 function PrimPage() {
+  const { nodes, edges } = useGraph(); //grafo de home
+  console.log('Nodos en Prim:', nodes);
   const originalGraphRef = useRef();
   const primGraphRef = useRef();
   const [mstText, setMstText] = useState('');
@@ -49,19 +52,8 @@ function PrimPage() {
     setMstText(mstText);
     setMstText(mstText);
 
-    // Convertimos a nodos y edges para ReactFlow
+    // Convertir a nodos y edges para ReactFlow
     const primNodeSet = new Set();
-    /*const primEdges = result.edges.map(({ origen, destino, peso }, i) => {
-      primNodeSet.add(origen);
-      primNodeSet.add(destino);
-      return {
-        id: `e${origen}-${destino}`,
-        source: origen,
-        target: destino,
-        label: `${peso}`,
-        type: 'straight'
-      };
-    });*/
     const primEdges = result.map(({ origen, destino, peso }) => {
       primNodeSet.add(origen);
       primNodeSet.add(destino);
@@ -91,7 +83,7 @@ function PrimPage() {
       <div className='prim-page'>
         <div className="prim-left">
           <h2>Grafo original</h2>
-          <Graph ref={originalGraphRef} botones={true}/>
+          <Graph ref={originalGraphRef} botones={true} initialNodes={nodes} initialEdges={edges}/>
         </div>
         <div className="prim-divider" />
         <div className="prim-right">
@@ -103,7 +95,7 @@ function PrimPage() {
         <Button label='Calcular Grafo' onClick={onClick}></Button>
       </div>
       {mstText && (
-        <div style={{ padding: '10px' }}>
+        <div className='result-container'>
           <h3>Resultado:</h3>
           <pre>{mstText}</pre>
         </div>

@@ -16,6 +16,7 @@ function App() {
         <Sidebar />
         <div style={{ /*flexGrow: 1, padding: '1rem', height: '100vh', weight: '100vw'*/}}>
           <Routes>
+            <Route path="/" element={<HomePage />} />
             <Route path="/prim" element={<PrimPage />} />
             <Route path="/dijkstra" element={<DijkstraPage />} />
             <Route path="/vector-distancia" element={<VectorDistanciaPage />} />

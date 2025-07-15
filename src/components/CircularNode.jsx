@@ -1,6 +1,8 @@
 import './CircularNode.css'
 import { Handle, Position } from 'reactflow';
-export function CircularNode({ data }) {
+import React from 'react';
+
+export const CircularNode = React.memo(function CircularNode({ data }) {
   return (
     <div className={data.className}>
       {data.label}
@@ -8,4 +10,4 @@ export function CircularNode({ data }) {
       <Handle type="source" position={Position.Bottom} className='punto-union' />
     </div>
   );
-}
+});

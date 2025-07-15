@@ -1,10 +1,12 @@
 .prim-page-container {
   display: flex;
-  height: 100vh;
-  width: 100vw;
-  gap: 1rem;
   flex-direction: column;
-  overflow: hidden;
+  /*height: 100vh;*/
+  min-height: 100vh;
+  width: 100vw;
+  overflow-y: auto;
+  gap: 1rem;
+  /*overflow: hidden;*/
 }
 
 .prim-page-container h1 {
@@ -17,18 +19,19 @@
 }
 
 .prim-page {
-  gap: 1rem;
   display: flex;
+  gap: 1rem;
   width: 100%;
-  height: 100%;
+  /*height: 100%;
+  height: 70vh;*/
+  flex: 0 0 70vh; 
 }
 
 .prim-left, .prim-right {
   flex: 1;
-  /*box-sizing: border-box;
-  overflow: auto;*/
-  width: 100%;
-  height: 100%;
+  /*width: 100%;
+  height: 100%;*/
+  overflow: hidden;
 }
 
 .prim-divider {
@@ -42,23 +45,11 @@
   display: flex;
   justify-content: center;
   margin-top: 1rem;
+  flex-shrink: 0;
 }
 
-/*
-.prim-left {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  border-right: 1px solid #ccc;
+.result-container {
+  padding: 1rem;
+  white-space: pre-wrap;
+  flex-shrink: 0;
 }
-
-.prim-right {
-  width: 100%;
-  height: 100%;
-  border-left: 1px solid #ccc;
-}
-
-.prim-left h2,  .prim-right h2 {
-  position: absolute;
-
-}*/

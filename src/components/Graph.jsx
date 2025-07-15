@@ -12,14 +12,15 @@ import { Button } from './Button';
 import { Input } from './Input'; 
 import { CircularNode } from './CircularNode';
 import './Graph.css'
+import isEqual from 'lodash.isequal';
 
 const nodeTypes = {
   circular: CircularNode,
 };
 
-function Graph({ botones }, ref) {
-  const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+function Graph({ botones, initialNodes = [], initialEdges = [], onGraphChange}, ref) {
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   const [showInput, setShowInput] = useState(false);
   const [selectedNodeId, setSelectedNodeId] = useState(null); 
@@ -29,6 +30,16 @@ function Graph({ botones }, ref) {
   const [selectedEdgeId, setSelectedEdgeId] = useState(null);
   const [showEdgeInput, setShowEdgeInput] = useState(false);
   const edgeInputRef = useRef(null);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (typeof onGraphChange === 'function') {
+        onGraphChange(nodes, edges);
+      }
+    }, 0); // permite que ReactFlow estabilice antes de emitir
+
+    return () => clearTimeout(timeout);
+  }, [nodes, edges]);
 
 
   useImperativeHandle(ref, () => ({

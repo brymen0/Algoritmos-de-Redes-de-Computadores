@@ -6,6 +6,7 @@ function Sidebar() {
   const location = useLocation();
 
   const links = [
+    { to: '/', label: 'Inicio' },
     { to: '/prim', label: 'Algoritmo Prim' },
     { to: '/dijkstra', label: 'Dijkstra' },
     { to: '/vector-distancia', label: 'Vector Distancia' },
