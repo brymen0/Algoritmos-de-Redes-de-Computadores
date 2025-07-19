@@ -7,7 +7,6 @@ import { useGraph } from '../context/GraphContext';
 
 function PrimPage() {
   const { nodes, edges } = useGraph(); //grafo de home
-  console.log('Nodos en Prim:', nodes);
   const originalGraphRef = useRef();
   const primGraphRef = useRef();
   const [mstText, setMstText] = useState('');
@@ -44,7 +43,7 @@ function PrimPage() {
       graph[from].edges.push({ to, weight });
       graph[to].edges.push({ to: from, weight }); // no dirigido
     });
-
+  
     const result = prim(graph);
     const mstText = result.map(({ origen, destino, peso }) => 
       `${origen} -- ${peso} --> ${destino}`
@@ -73,7 +72,9 @@ function PrimPage() {
       //position: { x: Math.random() * 300, y: Math.random() * 300 },
       position: positionMap.get(id) || { x: Math.random() * 300, y: Math.random() * 300 }
     }));
-
+    console.log("Se manda:")
+    console.log("Nodos: ",primNodes)
+    console.log("Enalces: ",primEdges)
     primGraphRef.current.setGraphData(primNodes, primEdges);
   };
 

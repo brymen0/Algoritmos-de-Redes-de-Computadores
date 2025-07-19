@@ -39,7 +39,7 @@ function Graph({ botones, initialNodes = [], initialEdges = [], onGraphChange}, 
     }, 0); // permite que ReactFlow estabilice antes de emitir
 
     return () => clearTimeout(timeout);
-  }, [nodes, edges]);
+  }, [nodes, edges, onGraphChange]);
 
 
   useImperativeHandle(ref, () => ({
