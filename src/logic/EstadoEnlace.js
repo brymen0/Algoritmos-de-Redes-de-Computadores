@@ -12,7 +12,7 @@ export function estadoEnlace(enlacesPorOrigen) {
       const nodoB = destino.trim();
       const enlaceId = [nodoA, nodoB].sort().join('-'); // A-B (ordenado)
 
-      // 🧠 Arista única en grafo no dirigido
+      // arista única en grafo no dirigido
       if (!edgeSet.has(enlaceId)) {
         edgeSet.add(enlaceId);
 

@@ -1,0 +1,71 @@
+.vector-distancia-container{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    gap: 1.8rem;
+    overflow: hidden;
+}
+
+.vector-distancia-container h1 {
+    align-self: center;
+    margin: 0;
+    margin-top: 1rem;
+}
+
+.vector-distancia-page{
+    display: flex;
+    width: 100%;
+    flex: 0 0 70vh;
+    overflow: hidden;
+}
+
+.graph-left, .container-right {
+  flex: 1;
+  overflow: hidden;
+}
+
+.container-right{
+    display: flex;
+    flex-direction: column;
+}
+
+.tablas-container{
+    display: flex;
+    flex-direction: column;
+    /*width: 100%;
+    height: 90%;*/
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.buttons-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 2rem;
+}
+
+
+.tabla-nodo h3 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.tablas-paralelas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.tabla {
+  min-width: max-content;
+  border-collapse: collapse;
+}
+
+.tabla td, .tabla th {
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  text-align: center;
+}
