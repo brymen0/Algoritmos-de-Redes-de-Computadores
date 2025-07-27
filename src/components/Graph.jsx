@@ -42,13 +42,26 @@ function Graph({ botones, initialNodes = [], initialEdges = [], onGraphChange}, 
   }, [nodes, edges, onGraphChange]);
 
 
-  useImperativeHandle(ref, () => ({
+  /*useImperativeHandle(ref, () => ({
     getGraphData: () => ({ nodes, edges }),
     setGraphData: (newNodes, newEdges) => {
       setNodes(newNodes);
       setEdges(newEdges);
     }
+  }));*/
+
+  useImperativeHandle(ref, () => ({
+    getGraphData: () => ({ nodes, edges }),
+    setGraphData: (newNodes, newEdges) => {
+      setNodes(newNodes);
+      setEdges(newEdges);
+    },
+    clearGraph: () => {
+      setNodes([]);
+      setEdges([]);
+    }
   }));
+
 
   const handleCrearNodo = () => {
     setShowInput(true);

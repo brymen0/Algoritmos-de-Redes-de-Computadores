@@ -1,11 +1,37 @@
 import Graph from "../components/Graph";
 import { Button } from "../components/Button";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { reconstruirCamino, dijkstra } from "../logic/Dijkstra";
+import { useGraph } from '../context/GraphContext';
+import { ComboBox} from "../components/ComboBox"
+import { Tabla } from "../components/Tabla";
+import "./DijkstraPage.css"
 
 function DijkstraPage() {
+  const { nodes, edges } = useGraph(); //grafo de home
   const originalGraphRef = useRef();
   const dijkstraGraphRef = useRef();
+  const [origen, setOrigen] = useState("");
+  const [resultados, setResultados] = useState([]);
+  const [comboOptions, setComboOptions] = useState([]);
+  const [iteraciones, setIteraciones] = useState([]);
+  const [filasTabla, setFilasTabla] = useState([]);
+  const [mostrarTablas, setMostrarTablas] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentGraph = originalGraphRef.current?.getGraphData();
+      if (currentGraph?.nodes) {
+        setComboOptions(currentGraph.nodes.map(n => ({
+          value: n.id,
+          label: n.id
+        })));
+      }
+    }, 500); //actuaza cada medio segundo
+
+    return () => clearInterval(interval);
+  }, []);
+
   function onClick() {
     const { nodes, edges } = originalGraphRef.current.getGraphData();
 
@@ -39,30 +65,55 @@ function DijkstraPage() {
       graph[to].edges.push({ to: from, weight }); // no dirigido
     });
 
-    const { distancias, anteriores } = dijkstra(graph, 'S');
-    const camino = reconstruirCamino(anteriores, 'S', 'T'); // si quieres A → F
+    //const { distancias, anteriores, iteraciones } = dijkstra(graph, origen);
+    //console.log("Iteraciones", iteraciones)
+    const { distancias, anteriores, iteraciones, tablaResumen } = dijkstra(graph, origen);
+    setIteraciones(iteraciones);
+    setFilasTabla(tablaResumen);
+    const nodos = Object.keys(graph); // basado en el grafo adyacente
 
-    if (!camino) {
-      alert('No hay camino disponible entre A y F.');
-      return;
+    const todosLosEdges = [];
+    const nuevosResultados = [];
+
+    for (const destino in distancias) {
+      if (destino === origen || distancias[destino] === Infinity) continue;
+
+      const camino = reconstruirCamino(anteriores, origen, destino);
+      if (!camino || camino.length === 0) continue;
+
+      const nodosVisitados = [origen, ...camino.map(p => p.destino)];
+      const caminoConPeso = camino.map(({ origen, destino }) => {
+        const arista = graph[origen].edges.find(e => e.to === destino);
+        return {
+          origen,
+          destino,
+          peso: arista?.weight || 1
+        };
+      });
+
+      // Guardar resultados para tabla
+      const pesoTotal = caminoConPeso.reduce((acc, paso) => acc + paso.peso, 0);
+      nuevosResultados.push({
+        destino,
+        peso: pesoTotal,
+        recorrido: nodosVisitados.join(','),
+      });
+
+      // Guardar aristas para visualización
+      todosLosEdges.push(...caminoConPeso);
     }
 
-    const caminoConPeso = camino.map(({ origen, destino }) => {
-      const arista = graph[origen].edges.find(e => e.to === destino);
-      return {
-        origen,
-        destino,
-        peso: arista?.weight || 1
-      };
-    });
+    const graphRunId = Date.now().toString(); // una sola vez por ejecución
+    setResultados(nuevosResultados);
+    dijkstraGraphRef.current.clearGraph();
 
-     // Convertir a nodos y edges para ReactFlow
+    //convertir al formato para renderizaar
     const dijkstraNodeSet = new Set();
-    const dijkstraEdges = caminoConPeso.map(({ origen, destino, peso }) => {
+    const dijkstraEdges = todosLosEdges.map(({ origen, destino, peso }, idx) => {
       dijkstraNodeSet.add(origen);
       dijkstraNodeSet.add(destino);
       return {
-        id: `e${origen}-${destino}`,
+        id: `e${graphRunId}-${origen}-${destino}-${idx}`,
         source: origen,
         target: destino,
         label: `${peso}`,
@@ -77,26 +128,56 @@ function DijkstraPage() {
       //position: { x: Math.random() * 300, y: Math.random() * 300 },
       position: positionMap.get(id) || { x: Math.random() * 300, y: Math.random() * 300 }
     }));
-
+    setMostrarTablas(true);
     dijkstraGraphRef.current.setGraphData(dijkstraNodes, dijkstraEdges);
   }
+
+  const filas = resultados.map(({ destino, peso, recorrido }) => [
+    destino,
+    peso.toString(),
+    recorrido
+  ]);
+
   return (
-      <div className='prim-page-container'>
+      <div className={`prim-page-container ${mostrarTablas ? 'conTablas' : ''}`}>
         <h1>Algoritmo Dijkstra</h1>
         <div className='prim-page'>
           <div className="prim-left">
             <h2>Grafo original</h2>
-            <Graph ref={originalGraphRef} botones={true}/>
+            <Graph ref={originalGraphRef} botones={true} initialNodes={nodes} initialEdges={edges}/>
           </div>
           <div className="prim-divider" />
           <div className="prim-right">
             <h2>Camino más corto</h2>
+            <ComboBox 
+              text='Desde' 
+              options={comboOptions}
+              value={origen}
+              onChange={(e) => setOrigen(e.target.value)}
+            />
             <Graph ref={dijkstraGraphRef} botones={false}/>
           </div>
         </div>
         <div className='prim-button-container'>
           <Button label='Calcular Grafo' onClick={onClick}></Button>
         </div>
+        {mostrarTablas && <div className="tabla-dijkstra">
+          <h2>Tabla Dijkstra</h2>
+          {iteraciones.length > 0 &&
+            <Tabla
+              headers={filasTabla.encabezado}
+              data={filasTabla.filas}
+            />
+          }
+        </div>}
+
+        {mostrarTablas && <div className="caminos-container">
+          <h2>Resumen de caminos desde {origen}</h2>
+          <Tabla
+            headers={['Hacia', 'Peso', 'Camino']}
+            data={filas}
+          />
+        </div>}
       </div>
     );
 }
