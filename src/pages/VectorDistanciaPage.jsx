@@ -80,7 +80,7 @@ function VectorDistanciaPage() {
                 </h2>
                 {Object.entries(iteraciones[iteracion]).map(([nodo, { tabla1, tabla2 }]) => (
                   <div key={nodo} className="tabla-nodo">
-                    <h3>Tablas del nodo {nodo}</h3>
+                    <h3>Nodo {nodo}</h3>
                     <div className="tablas-paralelas">
                       <Tabla headers={tabla1.headers} data={tabla1.filas} />
                       <Tabla headers={tabla2.headers} data={tabla2.filas} />

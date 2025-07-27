@@ -1,12 +1,26 @@
-# React + Vite
+# Algoritmos de Redes de Computadoras
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto implementa varios **algoritmos fundamentales en redes de computadoras**, abarcando tanto el nivel de red como técnicas de detección y corrección de errores.
 
-Currently, two official plugins are available:
+## Algoritmos implementados
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 📡 Algoritmos de Enrutamiento
+- **Enrutamiento por Vector de Distancia**  
+  Simula la propagación de información de ruteo entre nodos mediante el algoritmo de Bellman-Ford.
+  
+- **Enrutamiento por Estado del Enlace**  
+  Implementa el algoritmo de Dijkstra para calcular las rutas más cortas a partir del conocimiento completo de la topología de red.
 
-## Expanding the ESLint configuration
+### ✅ Algoritmos de Detección y Corrección de Errores
+- **Código de Hamming**  
+  Permite la corrección de errores de 1 bit y detección de errores de 2 bits en tramas de datos.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Código CRC (Cyclic Redundancy Check)**  
+  Método para la detección de errores en tramas transmitidas, basado en operaciones de división binaria.
+
+### 🧮 Algoritmos de Caminos Mínimos en Grafos
+- **Algoritmo de Dijkstra**  
+  Encuentra el camino más corto desde un nodo origen a todos los demás nodos en un grafo ponderado sin ciclos negativos.
+
+- **Algoritmo de Prim**  
+  Construye un árbol de expansión mínima (MST) a partir de un grafo conexo, minimizando el costo total de conexión entre nodos.
